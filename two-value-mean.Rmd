@@ -1,0 +1,32 @@
+---
+title: "二つの平均値"
+output: html_notebook
+---
+## 課題
+データは生活習慣の違いによりA群とB群に分けて記録されたデータである
+A群とB群の総コレステロール値に差はあるだろうか？
+
+## 仮説
+帰無仮説H0 : μA = μB  　A群とB群の母平均は等しい
+対立仮説H1 : μA ≠ μB    A群とB群の母平均は等しくない　
+
+## データの読み込み
+```{r}
+library(openxlsx)
+path ='/Users/sh1/code/R/r-practice/3-2.xlsx'
+data3_2 <- read.xlsx(path, sheet = 1)
+```
+
+## プロット
+
+```{r}
+stripchart(data3_2, method='stack', pch=1)
+```
+
+## T検定による検定
+```{r}
+t.test(data3_2$A, data3_2$B, paired=F, alternative="two.sided", var.equal = T)
+```
+
+## 結論
+帰無仮説H0は棄却されず、二つの群のコレステロール値の母平均に差が有るとは言えない
